@@ -1,0 +1,29 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "docker-build",
+			"label": "docker-build",
+			"platform": "python",
+			"dockerBuild": {
+				"tag": "dstest:latest",
+				"dockerfile": "${workspaceFolder}/Dockerfile",
+				"context": "${workspaceFolder}",
+				"pull": true
+			}
+		},
+		{
+			"type": "docker-run",
+			"label": "docker-run: debug",
+			"dependsOn": [
+				"docker-build"
+			],
+			"dockerRun": {
+				"customOptions": "--runtime=nvidia --gpus all  -v ~/deepstream-python/output:/app/output  -p 8554:8554 -p 8555:8555 -e DISPLAY=$DISPLAY"
+			},
+			"python": {
+				"file": "test.py"
+			}
+		}
+	]
+}
