@@ -57,5 +57,7 @@ RUN make install
 RUN python -m pip install pyds-1.1.1-py3-none-linux_x86_64.whl
 RUN python3 -m pip install pyds-1.1.1-py3-none-linux_x86_64.whl
 
+WORKDIR /deepstream_python_apps
 COPY . /deepstream_python_apps
 ENTRYPOINT [ "/bin/bash" ]
+#RUN python3 /deepstream_python_apps/test.py
